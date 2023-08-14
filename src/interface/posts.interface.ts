@@ -2,7 +2,7 @@ export interface PostDto {
   _id?: string;
   title: string;
   description: string;
-  categoryName: string;
+  categoryId: string;
   createDate?: Date;
 }
 

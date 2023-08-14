@@ -16,6 +16,7 @@ export class PostsService {
     try {
       const list = await this.postModel
         .find()
+        .select('_id title categoryId createDate')
         .sort({ createDate: -1 })
         .limit(8)
         .exec();
