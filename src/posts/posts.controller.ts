@@ -11,6 +11,11 @@ export class PostController {
     return this.postsService.getCategories();
   }
 
+  @Post('category')
+  saveCategory(@Body() categoryDto: CategoryDto) {
+    return this.postsService.saveCategory(categoryDto);
+  }
+
   @Get('posts')
   getPosts() {
     return this.postsService.getPosts();
