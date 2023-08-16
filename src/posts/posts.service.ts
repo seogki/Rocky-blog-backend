@@ -18,7 +18,7 @@ export class PostsService {
         .find()
         .select('_id title categoryId createDate')
         .sort({ createDate: -1 })
-        .limit(8)
+        .limit(10)
         .exec();
       return list;
     } catch (err: any) {
@@ -26,17 +26,42 @@ export class PostsService {
     }
   }
 
+  async getPostsByCategoryId(categoryId: string) {
+    try {
+      console.debug(categoryId);
+      let list = [];
+      if (categoryId !== 'RECENT') {
+        list = await this.postModel
+          .find({ categoryId })
+          .select('_id title categoryId createDate')
+          .sort({ createDate: -1 })
+          .limit(10)
+          .exec();
+      } else {
+        list = await this.postModel
+          .find()
+          .select('_id title categoryId createDate')
+          .sort({ createDate: -1 })
+          .limit(10)
+          .exec();
+      }
+
+      return list;
+    } catch (err: any) {
+      throw Error('Server error');
+    }
+  }
+
+  async getPost(_id: string) {
+    try {
+      const data = await this.postModel.findById(_id).exec();
+      return data;
+    } catch (err: any) {
+      throw Error('Server error');
+    }
+  }
+
   async getCategories() {
-    // const list: CategoryDto[] = [];
-
-    // list.push({ _id: '1', name: 'JAVASCRIPT' });
-    // list.push({ _id: '2', name: 'NEXT JS' });
-    // list.push({ _id: '3', name: 'REACT' });
-    // list.push({ _id: '4', name: 'VUE' });
-    // list.push({ _id: '5', name: 'CSS' });
-    // list.push({ _id: '6', name: 'NEST JS' });
-    // list.push({ _id: '7', name: 'ETC' });
-
     try {
       const list = await this.categoryModel.find().exec();
       return list;
