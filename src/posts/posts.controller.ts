@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { CategoryDto, PostDto } from 'src/interface/posts.interface';
 import { PostsService } from './posts.service';
 
@@ -19,6 +19,17 @@ export class PostController {
   @Get('posts')
   getPosts() {
     return this.postsService.getPosts();
+  }
+
+  @Get('posts/:categoryId')
+  getPostsByCategoryId(@Param('categoryId') categoryId: string) {
+    console.debug(categoryId);
+    return this.postsService.getPostsByCategoryId(categoryId);
+  }
+
+  @Get('post')
+  getPost(@Query('_id') _id: string) {
+    return this.postsService.getPost(_id);
   }
 
   @Post('post')
