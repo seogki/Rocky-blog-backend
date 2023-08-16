@@ -23,7 +23,6 @@ export class PostController {
 
   @Get('posts/:categoryId')
   getPostsByCategoryId(@Param('categoryId') categoryId: string) {
-    console.debug(categoryId);
     return this.postsService.getPostsByCategoryId(categoryId);
   }
 
